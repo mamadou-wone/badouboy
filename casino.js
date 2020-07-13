@@ -7,6 +7,7 @@ let button = document.querySelector('button');
 let h1 = document.querySelector('h1');
 
 let userMoney = 100;
+let userGain = 0;
 
 
 error.style.display = 'none';
@@ -23,14 +24,16 @@ function getRand(rand) {
     return Math.floor(Math.random() * Math.floor(rand));
 }
 
-let casinoNumber;
 
-let randValue = () => {
-    // On stock le nbre aléatoire dans une valeur
-    let randNumber = getRand(37);
-    document.querySelector('h1').textContent = randNumber;
-}
-setInterval(randValue, 5000);
+
+// let casinoNumber;
+
+// let randValue = () => {
+//     // On stock le nbre aléatoire dans une valeur
+//     let randNumber = getRand(37);
+//     document.querySelector('h1').textContent = randNumber;
+// }
+// setInterval(randValue, 5000);
 
 
 
@@ -55,21 +58,25 @@ inputNumber.addEventListener('keyup', () => {
 
 
 // Je crée une fonction qui retourne le résultat du joueur
-function getUserResult(userNumber, userSelect) {
-    if (h1.textContent == userNumber) {
+function getUserResult(userNumber, randNumber, userSelect) {
+
+    if (randNumber == userNumber) {
         console.log('Vous avez gagné');
-        userMoney = userMoney + userMoney * 35;
-        console.log(userMoney);
-    } else if (h1.textContent = !userNumber && userSelect == 'pair') {
-        userMoney = userMoney * 2;
-        console.log(userMoney);
-    } else if (h1.textContent = !userNumber && userSelect == 'impair') {
-        userMoney = userMoney * 2;
-        console.log(userMoney);
+        userGain = userNumber + (userNumber * 35);
+        userMoney = userMoney + userGain;
+        console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
+    } else if (randNumber != userNumber && userSelect == 'pair' && randNumber % 2 == 0) {
+        userGain = userNumber * 2;
+        userMoney = userMoney + userGain;
+        console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
+    } else if (randNumber != userNumber && userSelect == 'impair' && randNumber % 2 != 0) {
+        userGain = userNumber * 2;
+        userMoney = userMoney + userGain;
+        console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else {
-        console.log('Vous avez perdu');
+        userGain = 0;
         userMoney = userMoney - userNumber;
-        console.log(userMoney);
+        console.log('Vous avez perdu et votre cagnotte est de ' + userMoney);
     }
 }
 
@@ -78,10 +85,13 @@ function getUserResult(userNumber, userSelect) {
 // Je désactive le comportement par défaut du formulaire
 formulaire.addEventListener('submit', (e) => {
     e.preventDefault();
-    randNumber = getRand(37);
+    let randNumber = getRand(37);
     let userNumber = inputNumber.value;
     let userSelect = selectParite.value;
-    getUserResult(userNumber, userSelect);
+    console.log('User Number ' + userNumber);
+    console.log('Rand Number ' + randNumber);
+    console.log('Rand Select ' + userSelect);
+    getUserResult(userNumber, 10, userSelect);
     inputNumber.value = '';
     selectParite.value = '';
 
