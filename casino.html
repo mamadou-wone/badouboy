@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+
+        <div class="row justify-content-center mt-5">
+            <header>
+                Le Juste Prix
+            </header>
+        </div>
+        <h1></h1>
+        <!-- Formulaire -->
+        <div class="row justify-content-center mt-5 mb-4">
+            <div class="col-lg-8">
+                <div class="bg-light p-5 shadow">
+
+                    <form id="formulaire">
+                        <div class="row">
+                            <div class="col">
+                                <input id="number" class="form-control" placeholder="Entrer votre mise (entre 1 et 36)" type="number" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Deviner</button>
+                        </div>
+                </div>
+                <small class="text-danger">Vous devez rentrer un nombre compris entre 1 et 36.</small>
+                <div class="row">
+                    <div class="form-group" style="padding: 20px;">
+                        <select class="form-control" name="select" id="parite" required>
+                               <option value="" disabled selected>Choisissez la parité</option>
+                               <option value="pair" >pair</option>
+                               <option value="impair">impair</option>
+                           </select>
+                    </div>
+                    <div class="form-group" style="padding: 20px;">
+                        <select class="form-control" name="select" id="randNumber">
+                               <option value="" disabled selected>Nombre Possibles</option>
+                           </select>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+
+
+        <!-- Instructions -->
+        <div class="row justify-content-center">
+            <div id="instructions" class="col-lg-8"></div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="casino.js"></script>
+</body>
+
+</html>

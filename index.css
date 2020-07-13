@@ -1,0 +1,55 @@
+body{
+    margin:0;
+    padding: 0;
+    font-family: Palatino, URW Palladio L,serif;
+    font-size: 16px;
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(fond1.png);
+    background-size: cover;
+    height:100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.main{
+    width: 100%;
+    background-color:#0005;
+    color: black;
+}
+.menu{
+    line-height: 45px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.main ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left:140px;
+}
+.main .menu .menu_i{
+    display: inline-block;
+    position: relative;
+    transition: 0.7s all;
+}
+.main  .menu_i a{
+    padding:12px 24px;
+    text-decoration:none;
+    color:white;
+    display: block;
+}
+.menu_i:hover{
+    background-color:#232527;
+    transform: skewX(20deg);
+    animation-direction: alternate;
+    animation:skew 1s infinite;
+}
+.title{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+.title h1{
+    color: white;
+    font-size:30px;
+    font-family:Palatino, URW Palladio L, serif;
+}
