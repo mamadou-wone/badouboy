@@ -8,6 +8,8 @@ let h1 = document.querySelector('h1');
 
 let userMoney = 100;
 let userGain = 0;
+let userMise = 0;
+let userCagnote = [];
 
 
 error.style.display = 'none';
@@ -60,24 +62,33 @@ inputNumber.addEventListener('keyup', () => {
 // Je crée une fonction qui retourne le résultat du joueur
 function getUserResult(userNumber, randNumber, userSelect) {
 
+    userNumber = parseInt(userNumber);
+    userMise = userMoney - userNumber;
     if (randNumber == userNumber) {
         console.log('Vous avez gagné');
-        userGain = userNumber + (userNumber * 35);
-        userMoney = userMoney + userGain;
+        userGain = [(userNumber * 35) + userNumber];
+        console.log('Votre gain ' + userGain);
+        userMoney = parseInt(userMise) + parseInt(userGain);
+        userCagnote = userMoney;
+
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else if (randNumber != userNumber && userSelect == 'pair' && randNumber % 2 == 0) {
         userGain = userNumber * 2;
-        userMoney = userMoney + userGain;
+        console.log('Votre gain ' + userGain);
+        userMoney = parseInt(userMise) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else if (randNumber != userNumber && userSelect == 'impair' && randNumber % 2 != 0) {
         userGain = userNumber * 2;
-        userMoney = userMoney + userGain;
+        console.log('Votre gain ' + userGain);
+        userMoney = parseInt(userMise) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else {
         userGain = 0;
-        userMoney = userMoney - userNumber;
+        console.log('Votre gain ' + userGain);
+        userMoney = parseInt(userMoney) - parseInt(userNumber);
         console.log('Vous avez perdu et votre cagnotte est de ' + userMoney);
     }
+    console.log(userCagnote);
 }
 
 
