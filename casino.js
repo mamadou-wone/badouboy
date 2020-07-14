@@ -5,14 +5,21 @@ let selectRandNumber = document.getElementById('randNumber');
 let error = document.querySelector('small');
 let button = document.querySelector('button');
 let h1 = document.querySelector('h1');
+let h6 = document.querySelector('h6');
+let h3 = document.querySelector('h3');
 
+h3.style.display = 'none';
+h6.style.display = 'none';
+error.style.display = 'none';
+
+let ordiGain = 0;
 let userMoney = 100;
 let userGain = 0;
 let userMise = 0;
 let userCagnote = [];
 
 
-error.style.display = 'none';
+
 
 // On crée les options de 1 à 36
 for (let i = 1; i < 37; i++) {
@@ -25,19 +32,6 @@ for (let i = 1; i < 37; i++) {
 function getRand(rand) {
     return Math.floor(Math.random() * Math.floor(rand));
 }
-
-
-
-// let casinoNumber;
-
-// let randValue = () => {
-//     // On stock le nbre aléatoire dans une valeur
-//     let randNumber = getRand(37);
-//     document.querySelector('h1').textContent = randNumber;
-// }
-// setInterval(randValue, 5000);
-
-
 
 
 // Je vérifie que l'utilisateur entre un nombre compris entre 1 et 36
@@ -53,11 +47,24 @@ function verifyUserNumber(number) {
 }
 
 //  j'ajoute un evenement sur le input number
-inputNumber.addEventListener('keyup', () => {
-    let userNumber = inputNumber.value;
-    verifyUserNumber(userNumber);
-});
+function inputVerify() {
+    inputNumber.addEventListener('keyup', () => {
+        error.style.display = 'none';
+        let userNumber = inputNumber.value;
+        console.log(userNumber);
+        verifyUserNumber(userNumber);
+    });
 
+    inputNumber.addEventListener('click', (e) => {
+        error.style.display = 'none';
+        e.stopPropagation();
+        let userNumber = inputNumber.value;
+        verifyUserNumber(userNumber);
+    });
+
+}
+
+setInterval(inputVerify, 1000);
 
 // Je crée une fonction qui retourne le résultat du joueur
 function getUserResult(userNumber, randNumber, userSelect) {
@@ -69,26 +76,74 @@ function getUserResult(userNumber, randNumber, userSelect) {
         userGain = [(userNumber * 35) + userNumber];
         console.log('Votre gain ' + userGain);
         userMoney = parseInt(userMise) + parseInt(userGain);
-        userCagnote = userMoney;
-
+        h1.textContent = 'Votre Cagnotte est ' + userMoney;
+        h6.style.display = 'contents';
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else if (randNumber != userNumber && userSelect == 'pair' && randNumber % 2 == 0) {
         userGain = userNumber * 2;
         console.log('Votre gain ' + userGain);
         userMoney = parseInt(userMise) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
+        h1.textContent = 'Votre Cagnotte est ' + userMoney;
+        h6.style.display = 'contents';
     } else if (randNumber != userNumber && userSelect == 'impair' && randNumber % 2 != 0) {
         userGain = userNumber * 2;
         console.log('Votre gain ' + userGain);
         userMoney = parseInt(userMise) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
+        h1.textContent = 'Votre Cagnotte est ' + userMoney;
+        h6.style.display = 'contents';
     } else {
         userGain = 0;
+        ordiGain += parseInt(userNumber) + parseInt(userGain);
         console.log('Votre gain ' + userGain);
         userMoney = parseInt(userMoney) - parseInt(userNumber);
         console.log('Vous avez perdu et votre cagnotte est de ' + userMoney);
+        h1.textContent = 'Votre Cagnotte est ' + userMoney;
+        h6.style.display = 'contents';
+        h3.textContent = 'Gain de l\'ordinateur ' + ordiGain;
+        h3.style.display = 'contents';
     }
-    console.log(userCagnote);
+
+
+    // Je vérifie si l'utilisateur à toujours de l'argent à miser
+    if (userMoney == 0) {
+        h1.textContent = 'Vous êtes ruiné vous ne pouvez plus rien miser';
+        button.disabled = true;
+    }
+
+    // je Vérifie si l'utilisateur fait bien une mise inférieur à sa cagnotte
+    // Par exemple s'il joue jusqu'à avoir 11 (11 000) de cagnotte il ne peut pas miser plus de 11
+    // par exemple une mise de 20
+    inputNumber.addEventListener('keyup', (e) => {
+        e.stopPropagation();
+        if (inputNumber.value > userMoney) {
+            error.textContent = 'Votre cagnotte ne vous permet pas de faire cette mise';
+            error.style.display = 'contents';
+            button.disabled = true;
+        } else {
+            error.style.display = 'none';
+            button.disabled = false;
+        }
+    });
+
+
+    inputNumber.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (inputNumber.value > userMoney) {
+            error.textContent = 'Votre cagnotte ne vous permet pas de faire cette mise';
+            error.style.display = 'contents';
+            button.disabled = true;
+        } else {
+            error.style.display = 'none';
+            button.disabled = false;
+        }
+    });
+
+
+
+
+
 }
 
 
@@ -102,7 +157,7 @@ formulaire.addEventListener('submit', (e) => {
     console.log('User Number ' + userNumber);
     console.log('Rand Number ' + randNumber);
     console.log('Rand Select ' + userSelect);
-    getUserResult(userNumber, 10, userSelect);
+    getUserResult(userNumber, randNumber, userSelect);
     inputNumber.value = '';
     selectParite.value = '';
 
