@@ -15,7 +15,7 @@ error.style.display = 'none';
 let ordiGain = 0;
 let userMoney = 100;
 let userGain = 0;
-let userMise = 0;
+let UserRestCash = 0;
 let userCagnote = [];
 
 
@@ -37,6 +37,7 @@ function getRand(rand) {
 // Je vérifie que l'utilisateur entre un nombre compris entre 1 et 36
 // Je créé un fontion chargé de vérifié les saisie du joueur
 function verifyUserNumber(number) {
+    number = parseInt(number);
     if (number <= 0 || number > 36) {
         error.style.display = 'contents';
         button.disabled = true;
@@ -49,7 +50,6 @@ function verifyUserNumber(number) {
 //  j'ajoute un evenement sur le input number
 function inputVerify() {
     inputNumber.addEventListener('keyup', () => {
-        error.style.display = 'none';
         let userNumber = inputNumber.value;
         console.log(userNumber);
         verifyUserNumber(userNumber);
@@ -70,26 +70,26 @@ setInterval(inputVerify, 1000);
 function getUserResult(userNumber, randNumber, userSelect) {
 
     userNumber = parseInt(userNumber);
-    userMise = userMoney - userNumber;
+    UserRestCash = userMoney - userNumber;
     if (randNumber == userNumber) {
         console.log('Vous avez gagné');
         userGain = [(userNumber * 35) + userNumber];
         console.log('Votre gain ' + userGain);
-        userMoney = parseInt(userMise) + parseInt(userGain);
+        userMoney = parseInt(UserRestCash) + parseInt(userGain);
         h1.textContent = 'Votre Cagnotte est ' + userMoney;
         h6.style.display = 'contents';
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
     } else if (randNumber != userNumber && userSelect == 'pair' && randNumber % 2 == 0) {
         userGain = userNumber * 2;
         console.log('Votre gain ' + userGain);
-        userMoney = parseInt(userMise) + parseInt(userGain);
+        userMoney = parseInt(UserRestCash) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
         h1.textContent = 'Votre Cagnotte est ' + userMoney;
         h6.style.display = 'contents';
     } else if (randNumber != userNumber && userSelect == 'impair' && randNumber % 2 != 0) {
         userGain = userNumber * 2;
         console.log('Votre gain ' + userGain);
-        userMoney = parseInt(userMise) + parseInt(userGain);
+        userMoney = parseInt(UserRestCash) + parseInt(userGain);
         console.log('Vous avez gagné ' + userGain + ' et votre cagnotte est de ' + userMoney);
         h1.textContent = 'Votre Cagnotte est ' + userMoney;
         h6.style.display = 'contents';
@@ -105,6 +105,16 @@ function getUserResult(userNumber, randNumber, userSelect) {
         h3.style.display = 'contents';
     }
 
+    h6.addEventListener('click', () => {
+        h1.textContent = 'Merci d\'avoir joué vous repartez avec ' + `${userGain === 0 ? 0 + '' : userGain+ '.000'}` + ' CFA' + ' Votre Cagnotte est de ' + userMoney + '.000' + ' CFA';
+        h1.style.color = '#00796B';
+        h3.textContent = 'Gain de l\'ordinateur ' + `${ordiGain === 0 ? 0 + '' + ' CFA' : ordiGain + '.000 CFA'}`;
+        h3.style.display = 'contents';
+        button.disabled = true;
+        inputNumber.disabled = true;
+        selectParite.disabled = true;
+        selectRandNumber.disabled = true;
+    })
 
     // Je vérifie si l'utilisateur à toujours de l'argent à miser
     if (userMoney == 0) {
@@ -117,8 +127,8 @@ function getUserResult(userNumber, randNumber, userSelect) {
     // par exemple une mise de 20
     inputNumber.addEventListener('keyup', (e) => {
         e.stopPropagation();
-        if (inputNumber.value > userMoney) {
-            error.textContent = 'Votre cagnotte ne vous permet pas de faire cette mise';
+        if (parseInt(inputNumber.value) > userMoney) {
+            error.textContent = 'Votre ne pouvez pas faire cette mise';
             error.style.display = 'contents';
             button.disabled = true;
         } else {
