@@ -16,17 +16,20 @@
     <div class="container">
 
         <div class="row justify-content-center mt-5">
-            <header>
+            <header style="font-weight: bold;">
                 La Roulette
             </header>
         </div>
         <div class="row" style="display: flex;">
             <h1 style="padding: 12px;"></h1>
-            <h6 style="padding: 10px; margin: 12px; color: rgb(179, 32, 32);">Arrêter et Encaisser?</h6>
+
         </div>
+
         <div class="row">
             <h3></h3>
         </div>
+        <br><br>
+        <h6 class="encaisser">ENCAISSER ICI</h6>
         <!-- Formulaire -->
         <div class="row justify-content-center mt-5 mb-4">
             <div class="col-lg-8">
@@ -35,12 +38,12 @@
                     <form id="formulaire">
                         <div class="row">
                             <div class="col">
-                                <input id="number" class="form-control" required placeholder="Entrer votre mise (entre 1 et 36)" type="number" />
+                                <input id="number" class="form-control" required placeholder="Entrer votre mise " type="number" />
                             </div>
                             <button type="submit" class="btn btn-primary">GO</button>
                         </div>
                 </div>
-                <small class="text-danger">Vous devez rentrer un nombre compris entre 1 et 36.</small>
+                <small class="text-danger">Vous devez rentrer un nombre valide</small>
                 <div class="row">
                     <div class="form-group" style="padding: 20px;">
                         <select class="form-control" name="select" id="parite" required>
@@ -50,8 +53,8 @@
                            </select>
                     </div>
                     <div class="form-group" style="padding: 20px;">
-                        <select class="form-control" name="select" id="randNumber">
-                               <option value="" disabled selected>Nombre Possibles</option>
+                        <select class="form-control" name="select" id="randNumber" required>
+                               <option value="" disabled selected>Choisir un Nombre</option>
                            </select>
                     </div>
                 </div>
